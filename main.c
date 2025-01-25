@@ -1,29 +1,27 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <locale.h>
+#include <wchar.h>
 #include <math.h>
 
 
 #define MAX_NAME_SIZE 20
-#define FOR_WINDOWS
+#define USE_LOCALE
 
-#ifdef FOR_WINDOWS
-    #include <Windows.h>
+#ifdef USE_LOCALE
+    #include <locale.h>
 #endif
 
 
 int main(void)
 {
-    // setlocale(LC_ALL, "Rus");
-    #ifdef FOR_WINDOWS
-        SetConsoleCP(1251);
-        SetConsoleOutputCP(1251);
+    #ifdef USE_LOCALE
+        setlocale(LC_ALL, "");
     #endif
 
 
-    char people[][MAX_NAME_SIZE] = {"Èâàí", "Èâàíîâè÷", "Èâàíîâ"};
-    const char const alphabet_rus_lower[] =  "àáâãäå¸æçèéêëìíîïğñòóôõö÷øùúûüışÿ";
-    const char const alphabet_rus_bigger[] = "ÀÁÂÃÄÅ¨ÆÇÈÉÊËÌÍÎÏĞÑÒÓÔÕÖ×ØÙÚÛÜİŞß";
+    wchar_t people[][MAX_NAME_SIZE] = {L"Ğ˜Ğ²Ğ°Ğ½Ğ¾Ğ²", L"ĞŸĞµÑ‚Ñ€Ğ¾Ğ²"};
+    const wchar_t const alphabet_rus_lower[] =  L"Ğ°Ğ±Ğ²Ğ³Ğ´ĞµÑ‘Ğ¶Ğ·Ğ¸Ğ¹ĞºĞ»Ğ¼Ğ½Ğ¾Ğ¿Ñ€ÑÑ‚ÑƒÑ„Ñ…Ñ†Ñ‡ÑˆÑ‰ÑŠÑ‹ÑŒÑÑÑ";
+    const wchar_t const alphabet_rus_bigger[] = L"ĞĞ‘Ğ’Ğ“Ğ”Ğ•ĞĞ–Ğ—Ğ˜Ğ™ĞšĞ›ĞœĞĞĞŸĞ Ğ¡Ğ¢Ğ£Ğ¤Ğ¥Ğ¦Ğ§Ğ¨Ğ©ĞªĞ«Ğ¬Ğ­Ğ®Ğ¯";
 
     int count_peoples = sizeof(people) / sizeof(people[0]);
     for (int human_in_people = 0; human_in_people < count_peoples; human_in_people++)
@@ -65,15 +63,15 @@ int main(void)
         }
         
 
-        // èòîã
+        // Ğ¸Ñ‚Ğ¾Ğ³
         int var = (int)ceil((double)count_alp_name / (double)count_alp_peoples);
         if (size_name % 2 == 0)
         {
-            printf("%c%d%c ", people[human_in_people][ (int)ceil(size_name / 2.) - 1 ] - 32, var, people[human_in_people][ (int)ceil(size_name / 2.) ] - 32);
+            wprintf(L"%lc%ld%lc ", people[human_in_people][ (int)ceil(size_name / 2.) - 1 ] - 32, var, people[human_in_people][ (int)ceil(size_name / 2.) ] - 32);
         }
         else
         {
-            printf("%c%d%c ", people[human_in_people][ (int)ceil(size_name / 2.) ] - 32, var, people[human_in_people][ (int)ceil(size_name / 2.) - 1 ] - 32);
+            wprintf(L"%lc%ld%lc ", people[human_in_people][ (int)ceil(size_name / 2.) ] - 32, var, people[human_in_people][ (int)ceil(size_name / 2.) - 1 ] - 32);
         }
         
     }
