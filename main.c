@@ -1,18 +1,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-#include <Windows.h>
 #include <math.h>
 
 
 #define MAX_NAME_SIZE 20
+#define FOR_WINDOWS
+
+#ifdef FOR_WINDOWS
+    #include <Windows.h>
+#endif
 
 
 int main(void)
 {
     // setlocale(LC_ALL, "Rus");
-    SetConsoleCP(1251);
-    SetConsoleOutputCP(1251);
+    #ifdef FOR_WINDOWS
+        SetConsoleCP(1251);
+        SetConsoleOutputCP(1251);
+    #endif
+
 
     char people[][MAX_NAME_SIZE] = {"Иван", "Иванович", "Иванов"};
     const char const alphabet_rus_lower[] =  "абвгдеёжзийклмнопрстуфхцчшщъыьэюя";
